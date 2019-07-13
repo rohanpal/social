@@ -1,0 +1,14 @@
+body {
+  font-size: 25px;
+  background-color: #d6dee4;
+}
+.container {
+  margin: 90px auto 0 auto;
+  max-width: 1200px;
+}
+.nav-container {
+  margin: auto;
+}
+a {
+  text-decoration: none;
+}
