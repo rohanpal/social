@@ -1,34 +1,20 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
+
 import Scream from "../../components/Screams";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Profile from "./profile";
 import "./home.css";
+import { connect } from "react-redux";
+import { getAllScreams } from "../../redux/actions/dataActions";
 class Home extends Component {
-  state = {
-    screams: null
-  };
-  async componentDidMount() {
-    try {
-      const res = await axios.get(
-        "https://asia-east2-socialapp-17669.cloudfunctions.net/api/screams"
-      );
-
-      if (res) {
-        this.setState({
-          screams: res.data
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  componentDidMount() {
+    this.props.getAllScreams();
   }
   render() {
-    let displayData = this.state.screams ? (
-      this.state.screams.map(scream => (
-        <Scream key={scream.screamId} scream={scream} />
-      ))
+    let { screams, loading } = this.props.data;
+    let displayData = !loading ? (
+      screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
     ) : (
       <CircularProgress />
     );
@@ -44,4 +30,10 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+const mapStateToProps = state => ({
+  data: state.data
+});
+export default connect(
+  mapStateToProps,
+  { getAllScreams }
+)(Home);

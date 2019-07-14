@@ -15,7 +15,8 @@ export const getAllScreams = () => async dispatch => {
       "https://asia-east2-socialapp-17669.cloudfunctions.net/api/screams"
     );
     if (res) {
-      dispatch({ type: { type: SET_SCREAMS, payload: res.data } });
+      console.log(res.data);
+      dispatch({ type: SET_SCREAMS, payload: res.data });
     }
   } catch (error) {
     dispatch({ type: { type: SET_SCREAMS, payload: [] } });
@@ -37,10 +38,10 @@ export const getScream = screamId => async dispatch => {
 export const likeScream = screamId => async dispatch => {
   try {
     const res = await axios.get(
-      `https://asia-east2-socialapp-17669.cloudfunctions.net/api/screams/${screamId}/like`
+      `https://asia-east2-socialapp-17669.cloudfunctions.net/api/scream/${screamId}/like`
     );
     if (res) {
-      dispatch({ type: LIKE_SCREAM, payload: { updatedScream: res.data } });
+      dispatch({ type: LIKE_SCREAM, payload: res.data });
     }
   } catch (error) {
     console.log(error);
@@ -49,8 +50,9 @@ export const likeScream = screamId => async dispatch => {
 export const unLikeScream = screamId => async dispatch => {
   try {
     const res = await axios.get(
-      `https://asia-east2-socialapp-17669.cloudfunctions.net/api/screams/${screamId}/unlike`
+      `https://asia-east2-socialapp-17669.cloudfunctions.net/api/scream/${screamId}/unlike`
     );
+    console.log(res.data);
     if (res) {
       dispatch({ type: UNLIKE_SCREAM, payload: res.data });
     }
